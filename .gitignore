@@ -1,3 +1,15 @@
 .env
+.env.local
+.env*.local
 __pycache__/
 /data/cache/
+node_modules/
+.next/
+.expo/
+dist/
+out/
+*.tsbuildinfo
+.DS_Store
+npm-debug.*
+yarn-debug.*
+yarn-error.*

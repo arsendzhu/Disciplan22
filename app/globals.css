@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background-primary: #0f0e0c;
+  --background-secondary: #1a1916;
+  --background-tertiary: #232119;
+  --accent-primary: #e8c97a;
+  --accent-secondary: #7ec8a4;
+  --accent-tertiary: #c98b6a;
+  --accent-quaternary: #8ba7d4;
+  --text-primary: #f2ede4;
+  --text-secondary: #9d9589;
+  --text-tertiary: #635e57;
+  --border-subtle: #2a2724;
+  --font-display: "Fraunces Variable", "Fraunces", Georgia, serif;
+  --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+html[data-palette="carmine"] {
+  --accent-primary: #d65d5d;
+  --accent-secondary: #dba39a;
+  --accent-tertiary: #b44a4a;
+  --accent-quaternary: #6e8cbf;
+}
+
+html[data-palette="coastal"] {
+  --accent-primary: #9ab7d9;
+  --accent-secondary: #7ec8c0;
+  --accent-tertiary: #d9a96e;
+  --accent-quaternary: #4b6b88;
+}
+
+html[data-palette="forest"] {
+  --accent-primary: #cdbd7e;
+  --accent-secondary: #7ead8a;
+  --accent-tertiary: #8f6a4f;
+  --accent-quaternary: #5f7f71;
+}
+
+html[data-mode="light"] {
+  --background-primary: #f7f2ea;
+  --background-secondary: #fffaf3;
+  --background-tertiary: #efe7dc;
+  --text-primary: #1f1a15;
+  --text-secondary: #5e554b;
+  --text-tertiary: #85796b;
+  --border-subtle: #d7c8b7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background-primary);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(232, 201, 122, 0.08), transparent 34%),
+    radial-gradient(circle at 85% 18%, rgba(139, 167, 212, 0.1), transparent 20%),
+    linear-gradient(180deg, #14120f 0%, #0f0e0c 55%, #0a0908 100%);
+  color: var(--text-primary);
+  font-family: var(--font-body), sans-serif;
+}
+
+html[data-mode="light"] body {
+  background:
+    radial-gradient(circle at top, rgba(214, 93, 93, 0.08), transparent 32%),
+    radial-gradient(circle at 85% 18%, rgba(126, 173, 138, 0.12), transparent 20%),
+    linear-gradient(180deg, #fbf6ef 0%, #f7f2ea 55%, #f2ebdf 100%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(232, 201, 122, 0.28);
+  color: var(--text-primary);
+}
+
+.page-grid {
+  display: grid;
+  gap: 24px;
+}
+
+@media (min-width: 1080px) {
+  .page-grid {
+    grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.7fr);
+    align-items: start;
+  }
+}

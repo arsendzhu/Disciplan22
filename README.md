@@ -1,76 +1,152 @@
-# Discip-LAN
+# DisciPlan
 
-A modular productivity stack for students: Canvas sync, syllabus-aware planning, biometrics, and a small in-app companion—without mixing those concerns in one giant script.
+DisciPlan now contains two aligned layers:
 
----
+- a working Next.js web app for the modern Pulse experience
+- the original lightweight Python prototype modules under `engine/*.py` and `ui/*.py`
 
-## Quick start
+The web app is the main product path. The Python files are preserved so the original repository structure and earlier experiments are not lost.
 
-1. **Clone** this repo and open the project folder.
+## Main app stack
 
-2. **Create a virtual environment** (recommended):
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- Zustand
+- React Query
+- Supabase-ready API scaffolding
 
-   ```bash
-   python -m venv .venv
-   .venv\Scripts\activate
-   ```
+## Run the web app
 
-3. **Install dependencies**:
+1. Install Node.js 20+ and npm.
+2. Copy the env template:
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+cp .env.example .env.local
+```
 
-4. **Configure secrets**: copy `.env.example` to `.env` and fill in Canvas (and other) keys.  
-   Do **not** commit `.env`.
+3. Install dependencies:
 
-5. **Run the Canvas sync** (when `engine/canvas_api.py` is wired):
+```bash
+npm install
+```
 
-   ```bash
-   python engine/canvas_api.py
-   ```
+4. Start the app:
 
----
+```bash
+npm run dev
+```
 
-## Project layout
+Open:
 
-| Folder | What it’s for |
-|--------|----------------|
-| **`engine/`** | Backend-style code with no UI: Canvas (`canvas_api.py`), webcam / fatigue (`vision_module.py`), scoring / priorities (`brain.py`). |
-| **`ui/`** | Streamlit app (`app.py`) and reusable pieces in `ui/components/` (NPC, sidebar). |
-| **`data/syllabi/`** | Syllabus text or exports you save locally. |
-| **`data/cache/`** | Short-lived cache files (this path is gitignored). |
-| **`assets/`** | Sprites, icons, and other static files for the UI. |
+```text
+http://localhost:3000
+```
 
----
+## Useful web commands
 
-## Configuration
+```bash
+npm run dev
+npm run typecheck
+npm run build
+```
 
-| File | Purpose |
-|------|---------|
-| `.env.example` | Template: copy to `.env` and add real values. |
-| `.env` | Your real keys (ignored by git). |
-| `requirements.txt` | Pinned dependency list with comments describing each package. |
+## Main routes
 
----
+- `/` → Home
+- `/today` → working schedule system with multiple layouts
+- `/canvas`
+- `/grow`
+- `/discover`
+- `/welcome`
+- `/connect-canvas`
+- `/setup-profile`
 
-## Roadmap (planned)
+## Current status
 
-These pieces are **not built yet**—they describe where the product can go once Canvas + syllabus data are solid.
+Working now:
 
-1. **Smarter inputs** — Pull in **exams, due dates, and topic lists** from Canvas (assignments, calendar, syllabus text) so the app knows *what* to study and *when*.
+- responsive web app shell
+- Home, Today, Grow, Discover, and Canvas demo routes
+- working task creation flow
+- multiple schedule layouts
+- focus mode
+- theme and palette switching
+- Grow variants and visual customization
+- seeded demo data for local preview
 
-2. **Study plan (Perplexity)** — Send that structured context to **Perplexity** (or a similar research / reasoning API) to produce a **personalized study plan**: ordered topics, time suggestions, and gaps to fill.
+Still scaffolded or partial:
 
-3. **Interactive podcast (ElevenLabs)** — Turn the plan (and optional follow-up summaries) into **spoken audio** with **ElevenLabs**, then layer an **interactive** experience: listen like a podcast, pause, and **ask questions** that map back to your materials (Q&A or conversational agent on top of the same content).
+- live Canvas OAuth persistence
+- production AI calls
+- full backend persistence
+- webcam / fatigue sensing
 
-**Rough flow:** Canvas + syllabus → **study plan text** (Perplexity) → **voice + dialogue** (ElevenLabs + orchestration in `engine/` / `ui/`).
+## Environment variables
 
-When this ships, API keys will live in `.env` (alongside Canvas)—never in source code.
+Browser-safe or app-level config:
 
----
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_CANVAS_REDIRECT_URI`
+
+Server-side keys:
+
+- `ANTHROPIC_API_KEY`
+- `OPENAI_API_KEY`
+- `PERPLEXITY_API_KEY`
+- `CANVAS_CLIENT_ID`
+- `CANVAS_CLIENT_SECRET`
+- `GOOGLE_CALENDAR_CLIENT_ID`
+
+Legacy Python prototype values:
+
+- `CANVAS_BASE_URL`
+- `CANVAS_COOKIE`
+- `CANVAS_CSRF`
+- `ELEVENLABS_API_KEY`
+
+## Repository layout
+
+| Folder | Purpose |
+|--------|---------|
+| `app/` | Next.js routes and API handlers |
+| `components/` | Shared web UI, NPC, schedule, grow, and navigation components |
+| `hooks/` | UI-facing derived logic hooks |
+| `store/` | Zustand stores |
+| `lib/` | Core app logic, API wrappers, schedule engine, utilities |
+| `constants/` | Theme and scheduling taxonomy |
+| `engine/` | DisciPlan-compatible top-level engine barrels plus preserved Python prototype files |
+| `ui/` | DisciPlan-compatible top-level UI barrels plus preserved Python prototype files |
+| `data/` | Local syllabus and cache-oriented project data |
+| `assets/` | Static repository assets |
+| `docs/` | Migration and structure notes |
+
+## DisciPlan alignment
+
+Pulse was mapped into the original DisciPlan structure without flattening the app. The compatibility layer lives in:
+
+- `engine/brain.ts`
+- `engine/canvas_api.ts`
+- `engine/vision_module.ts`
+- `ui/app.ts`
+- `ui/components/npc.ts`
+- `ui/components/sidebar.ts`
+
+See `docs/disciplan-alignment.md` for the full mapping.
+
+## Legacy Python prototype
+
+These files are still present and untouched as historical or experimental modules:
+
+- `engine/brain.py`
+- `engine/canvas_api.py`
+- `engine/vision_module.py`
+- `ui/app.py`
+- `ui/components/npc.py`
+- `ui/components/sidebar.py`
 
 ## Security
 
-- Never push **session cookies**, **CSRF tokens**, or **API keys** to GitHub.
-- If a secret is ever pasted into chat or committed by mistake, **rotate it** (new Canvas session, new API key, etc.).
+- Never commit real `.env`, `.env.local`, cookies, or API keys.
+- If a secret is exposed, rotate it immediately.
