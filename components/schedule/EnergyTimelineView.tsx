@@ -73,7 +73,7 @@ export function EnergyTimelineView({
             ) : (
               <div className="rounded-lg border border-dashed border-border px-lg py-lg">
                 <BodyText>
-                  No {zoneMeta[zone].label.toLowerCase()} tasks yet. Add one to let Pulse place it with the right cognitive weight.
+                  No {zoneMeta[zone].label.toLowerCase()} tasks yet. Add one to let DisciPlan place it with the right cognitive weight.
                 </BodyText>
               </div>
             )}

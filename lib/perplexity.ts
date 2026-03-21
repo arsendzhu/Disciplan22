@@ -1,5 +1,13 @@
 const PERPLEXITY_ENDPOINT = "https://api.perplexity.ai/chat/completions";
 
+function stripJsonFence(text: string): string {
+  const t = text.trim();
+  if (t.startsWith("```")) {
+    return t.replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/, "");
+  }
+  return t;
+}
+
 async function callPerplexity<T>(prompt: string, fallback: T): Promise<T> {
   const apiKey = process.env.PERPLEXITY_API_KEY;
 
@@ -27,7 +35,7 @@ async function callPerplexity<T>(prompt: string, fallback: T): Promise<T> {
   if (!text) return fallback;
 
   try {
-    return JSON.parse(text) as T;
+    return JSON.parse(stripJsonFence(text)) as T;
   } catch {
     return fallback;
   }
@@ -66,6 +74,27 @@ export async function fetchDailyQuote(theme: string) {
       quote:
         "You do not rise to the level of your goals. You fall to the level of your systems.",
       author: "James Clear",
+    },
+  );
+}
+
+export type StudyPlanResult = {
+  plan: string;
+  notes: string;
+};
+
+export async function fetchStudyPlanForAssignment(input: {
+  title: string;
+  dueDate: string;
+  courseName?: string;
+}): Promise<StudyPlanResult> {
+  const course = input.courseName ? ` Course: ${input.courseName}.` : "";
+  return callPerplexity(
+    `You are a concise study coach for a college student.${course} Assignment: "${input.title}". Due: ${input.dueDate}.
+Return JSON only with this exact shape: {"plan":"string with 4-6 numbered steps in plain text","notes":"string with 2-3 short exam or deliverable tips"}`,
+    {
+      plan: "1. Skim the rubric.\n2. Draft an outline.\n3. Work in 25-minute blocks.\n4. Proofread before submit.",
+      notes: "Start early; ask in office hours if the spec is unclear.",
     },
   );
 }

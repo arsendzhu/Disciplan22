@@ -20,7 +20,7 @@ export default function WelcomePage() {
           className="font-display text-[clamp(3rem,2rem+4vw,4.8rem)] text-accent-primary"
           transition={{ duration: 3, repeat: Infinity }}
         >
-          Pulse
+          DisciPlan
         </motion.h1>
         <BodyText className="max-w-[30rem] text-[1rem]">
           Your AI study companion that actually gets you.

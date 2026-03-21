@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 
+import { CanvasDueSoon } from "@/components/canvas/CanvasDueSoon";
 import { AddTaskSheet } from "@/components/schedule/AddTaskSheet";
 import { BreakCard } from "@/components/schedule/BreakCard";
 import { EnergyTimelineView } from "@/components/schedule/EnergyTimelineView";
@@ -92,6 +93,8 @@ export default function TodayPage() {
       </div>
 
       <LayoutSwitcher />
+
+      <CanvasDueSoon />
 
       <div className="grid gap-lg xl:grid-cols-[minmax(0,1fr)_320px]">
         <div className="space-y-lg">

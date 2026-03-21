@@ -1,19 +1,20 @@
 import { NextResponse } from "next/server";
 
-import { getSyllabus } from "@/lib/canvas";
+import { canvasAuthMissingMessage, getSyllabus, resolveCanvasAuthHeaders } from "@/lib/canvas";
 
 export async function GET(request: Request) {
-  const token = request.headers.get("x-canvas-token");
+  const headers = resolveCanvasAuthHeaders(request);
   const { searchParams } = new URL(request.url);
   const courseId = searchParams.get("courseId");
 
-  if (!token || !courseId) {
-    return NextResponse.json(
-      { error: "Missing x-canvas-token header or courseId query param" },
-      { status: 400 },
-    );
+  if (!headers) {
+    return NextResponse.json({ error: canvasAuthMissingMessage() }, { status: 401 });
   }
 
-  const syllabus = await getSyllabus(token, courseId);
+  if (!courseId) {
+    return NextResponse.json({ error: "Missing courseId query param" }, { status: 400 });
+  }
+
+  const syllabus = await getSyllabus(headers, courseId);
   return NextResponse.json({ syllabus });
 }

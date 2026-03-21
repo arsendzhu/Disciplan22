@@ -10,7 +10,7 @@ import { Providers } from "@/components/providers/Providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Pulse",
+  title: "DisciPlan",
   description: "AI productivity companion for college students",
 };
 

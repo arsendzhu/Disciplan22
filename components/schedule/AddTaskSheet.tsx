@@ -297,7 +297,7 @@ export function AddTaskSheet({ open, onClose }: AddTaskSheetProps) {
                     <BodyText>
                       Heads up: {categoryMeta[category].energy === "high"
                         ? "high-load tasks are strongest in your peak window."
-                        : "manual scheduling is always allowed, but Pulse still nudges you toward lower-friction windows."}
+                        : "manual scheduling is always allowed, but DisciPlan still nudges you toward lower-friction windows."}
                     </BodyText>
                   </div>
                 </div>

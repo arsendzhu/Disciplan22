@@ -24,7 +24,7 @@ export default function SetupProfilePage() {
       <div className="mb-xl">
         <SectionTitle>When do you work best?</SectionTitle>
         <BodyText>
-          We&apos;ll build Pulse around your actual rhythm instead of forcing your day into a generic planner.
+          We&apos;ll build DisciPlan around your actual rhythm instead of forcing your day into a generic planner.
         </BodyText>
       </div>
 

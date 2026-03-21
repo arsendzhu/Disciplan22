@@ -107,7 +107,7 @@ export const demoTasks = [
   {
     id: "task-3",
     title: "Break - Walk route",
-    courseName: "Pulse",
+    courseName: "DisciPlan",
     scheduledTime: "12:00",
     endTime: "12:30",
     durationMinutes: 30,

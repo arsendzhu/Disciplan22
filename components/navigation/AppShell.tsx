@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Compass, Sparkles, Trees, CalendarDays } from "lucide-react";
+import { BookOpen, Sparkles, CalendarDays } from "lucide-react";
 import { useEffect } from "react";
 
 import { cn } from "@/lib/utils";
@@ -14,8 +14,6 @@ const links = [
   { href: "/", label: "Home", icon: Sparkles },
   { href: "/today", label: "Today", icon: CalendarDays },
   { href: "/canvas", label: "Canvas", icon: BookOpen },
-  { href: "/grow", label: "Grow", icon: Trees },
-  { href: "/discover", label: "Discover", icon: Compass },
 ] as const;
 
 function NPCMiniFace({ stressed }: { stressed: boolean }) {
@@ -56,7 +54,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="mb-md flex items-center gap-md">
             <NPCMiniFace stressed={currentState === "stressed" || currentState === "overwhelmed"} />
             <div>
-              <p className="font-display text-3xl text-accent-primary">Pulse</p>
+              <p className="font-display text-3xl text-accent-primary">DisciPlan</p>
               <p className="text-sm uppercase tracking-[0.22em] text-text-tertiary">AI study companion</p>
             </div>
           </div>

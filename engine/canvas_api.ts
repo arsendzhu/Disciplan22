@@ -8,6 +8,6 @@ export {
 
 export const canvasApiModuleNotes = {
   purpose:
-    "DisciPlan-compatible Canvas engine barrel. Keeps Canvas sync logic separate from UI modules.",
+    "DisciPlan-compatible Canvas engine barrel. Canvas HTTP logic lives in @/lib/canvas (OAuth + server session from .env).",
   sources: ["@/lib/canvas", "@/app/api/canvas/*"],
 };

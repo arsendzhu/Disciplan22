@@ -1,11 +1,6 @@
 # DisciPlan
 
-DisciPlan now contains two aligned layers:
-
-- a working Next.js web app for the modern Pulse experience
-- the original lightweight Python prototype modules under `engine/*.py` and `ui/*.py`
-
-The web app is the main product path. The Python files are preserved so the original repository structure and earlier experiments are not lost.
+DisciPlan is a Next.js web app for planning around Canvas coursework and schedules.
 
 ## Main app stack
 
@@ -62,25 +57,14 @@ npm run build
 - `/connect-canvas`
 - `/setup-profile`
 
-## Current status
+## Canvas data
 
-Working now:
+The **backend is Node/TypeScript** (Next.js API routes under `app/api/`). There is no Python runtime in this repo.
 
-- responsive web app shell
-- Home, Today, Grow, Discover, and Canvas demo routes
-- working task creation flow
-- multiple schedule layouts
-- focus mode
-- theme and palette switching
-- Grow variants and visual customization
-- seeded demo data for local preview
+Canvas access works in two ways (both implemented in `lib/canvas.ts`):
 
-Still scaffolded or partial:
-
-- live Canvas OAuth persistence
-- production AI calls
-- full backend persistence
-- webcam / fatigue sensing
+1. **Server session (`.env`)** — Set `CANVAS_COOKIE` and `CANVAS_CSRF` (and usually `CANVAS_BASE_URL`) on the server. API routes call Canvas with the same headers the old prototype used. Restart the dev server after changing these. Refresh cookies in `.env` when Canvas expires your session.
+2. **OAuth** — Optional: `CANVAS_CLIENT_ID`, `CANVAS_CLIENT_SECRET`, `NEXT_PUBLIC_CANVAS_REDIRECT_URI`, and “Connect with OAuth” on the Canvas page. If the client sends `x-canvas-token`, that Bearer token is used instead of the session cookies.
 
 ## Environment variables
 
@@ -99,11 +83,14 @@ Server-side keys:
 - `CANVAS_CLIENT_SECRET`
 - `GOOGLE_CALENDAR_CLIENT_ID`
 
-Legacy Python prototype values:
+Canvas (server):
 
-- `CANVAS_BASE_URL`
-- `CANVAS_COOKIE`
-- `CANVAS_CSRF`
+- `CANVAS_BASE_URL` — Canvas instance origin (no trailing slash), e.g. `https://csueastbay.instructure.com`
+- `CANVAS_COOKIE` — Full `Cookie` header value from your logged-in browser session
+- `CANVAS_CSRF` — `_csrf_token` (or equivalent) for Canvas API requests
+
+Other:
+
 - `ELEVENLABS_API_KEY`
 
 ## Repository layout
@@ -116,15 +103,15 @@ Legacy Python prototype values:
 | `store/` | Zustand stores |
 | `lib/` | Core app logic, API wrappers, schedule engine, utilities |
 | `constants/` | Theme and scheduling taxonomy |
-| `engine/` | DisciPlan-compatible top-level engine barrels plus preserved Python prototype files |
-| `ui/` | DisciPlan-compatible top-level UI barrels plus preserved Python prototype files |
+| `engine/` | DisciPlan-compatible engine barrels (`*.ts`) |
+| `ui/` | DisciPlan-compatible UI barrels (`*.ts`) |
 | `data/` | Local syllabus and cache-oriented project data |
 | `assets/` | Static repository assets |
 | `docs/` | Migration and structure notes |
 
 ## DisciPlan alignment
 
-Pulse was mapped into the original DisciPlan structure without flattening the app. The compatibility layer lives in:
+The compatibility layer lives in:
 
 - `engine/brain.ts`
 - `engine/canvas_api.ts`
@@ -134,17 +121,6 @@ Pulse was mapped into the original DisciPlan structure without flattening the ap
 - `ui/components/sidebar.ts`
 
 See `docs/disciplan-alignment.md` for the full mapping.
-
-## Legacy Python prototype
-
-These files are still present and untouched as historical or experimental modules:
-
-- `engine/brain.py`
-- `engine/canvas_api.py`
-- `engine/vision_module.py`
-- `ui/app.py`
-- `ui/components/npc.py`
-- `ui/components/sidebar.py`
 
 ## Security
 

@@ -1,8 +1,7 @@
 "use client";
 
 import { create } from "zustand";
-
-import { demoAssignments, demoCourses } from "@/lib/demo-data";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export type Course = {
   id: string;
@@ -24,16 +23,49 @@ export type Assignment = {
   source: "canvas" | "syllabus";
 };
 
+export type CanvasSyncStatus = "idle" | "loading" | "error";
+
 type CanvasStore = {
+  accessToken: string | null;
   courses: Course[];
   assignments: Assignment[];
+  syncStatus: CanvasSyncStatus;
+  syncError: string | null;
+  setAccessToken: (token: string | null) => void;
   setCourses: (courses: Course[]) => void;
   setAssignments: (assignments: Assignment[]) => void;
+  setSyncState: (status: CanvasSyncStatus, error?: string | null) => void;
+  setFromSync: (payload: { courses: Course[]; assignments: Assignment[] }) => void;
+  clearCanvas: () => void;
 };
 
-export const useCanvasStore = create<CanvasStore>((set) => ({
-  courses: demoCourses,
-  assignments: demoAssignments,
-  setCourses: (courses) => set({ courses }),
-  setAssignments: (assignments) => set({ assignments }),
-}));
+export const useCanvasStore = create<CanvasStore>()(
+  persist(
+    (set) => ({
+      accessToken: null,
+      courses: [],
+      assignments: [],
+      syncStatus: "idle",
+      syncError: null,
+      setAccessToken: (token) => set({ accessToken: token }),
+      setCourses: (courses) => set({ courses }),
+      setAssignments: (assignments) => set({ assignments }),
+      setSyncState: (status, error = null) => set({ syncStatus: status, syncError: error }),
+      setFromSync: ({ courses, assignments }) =>
+        set({ courses, assignments, syncStatus: "idle", syncError: null }),
+      clearCanvas: () =>
+        set({
+          accessToken: null,
+          courses: [],
+          assignments: [],
+          syncStatus: "idle",
+          syncError: null,
+        }),
+    }),
+    {
+      name: "disciplan-canvas-store",
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({ accessToken: state.accessToken }),
+    },
+  ),
+);
