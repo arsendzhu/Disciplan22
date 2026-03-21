@@ -1,0 +1,11 @@
+# Discip-LAN — Python dependencies
+# Install: pip install -r requirements.txt
+
+# HTTP client for Canvas API calls (engine/canvas_api.py)
+requests
+
+# Parse and strip HTML from syllabus pages (engine/canvas_api.py)
+beautifulsoup4
+
+# Load CANVAS_* and other secrets from a local .env file (never commit .env)
+python-dotenv
