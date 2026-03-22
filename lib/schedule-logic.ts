@@ -120,7 +120,7 @@ export function getLayoutIntro(layout: ScheduleLayout) {
     case "energy":
       return "Default view. Organizes the day around peak, secondary, and trough cognition zones.";
     case "timeline":
-      return "Classic hourly planning for users who think in time blocks first.";
+      return "Calendar planning with day, 3-day, 7-day, and month views.";
     case "board":
       return "Kanban flow for project-heavy days where status clarity matters most.";
     case "matrix":

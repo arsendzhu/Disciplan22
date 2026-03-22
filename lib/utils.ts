@@ -15,6 +15,15 @@ export function formatDuration(minutes: number) {
 }
 
 export function formatDateLabel(value: string) {
+  const isoMatch = value.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (isoMatch) {
+    const [, year, month, day] = isoMatch;
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+    }).format(new Date(Number(year), Number(month) - 1, Number(day)));
+  }
+
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "numeric",

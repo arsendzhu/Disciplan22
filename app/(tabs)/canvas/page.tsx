@@ -31,7 +31,9 @@ export default function CanvasPage() {
       <div className="flex flex-wrap items-end justify-between gap-lg">
         <div>
           <SectionTitle>Canvas</SectionTitle>
-          <BodyText>Upcoming assignments, add to Google Calendar, and a Perplexity study plan.</BodyText>
+          <BodyText>
+            Upcoming assignments, add to Google Calendar, and a Perplexity study plan. Synced deadlines also appear in the Today calendar.
+          </BodyText>
         </div>
         <div className="flex flex-wrap items-center gap-sm">
           <GhostButton

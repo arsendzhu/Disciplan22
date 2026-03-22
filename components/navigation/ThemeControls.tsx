@@ -1,6 +1,6 @@
 "use client";
 
-import { MoonStar, Palette, SunMedium, Trees } from "lucide-react";
+import { MoonStar, Palette, SunMedium } from "lucide-react";
 
 import { usePreferencesStore } from "@/store/preferencesStore";
 import { cn } from "@/lib/utils";
@@ -12,20 +12,11 @@ const palettes = [
   { value: "forest", label: "Forest" },
 ] as const;
 
-const treeVariants = [
-  { value: "orchard", label: "Orchard" },
-  { value: "blossom", label: "Blossom" },
-  { value: "aviary", label: "Aviary" },
-  { value: "moonlit", label: "Moonlit" },
-] as const;
-
 export function ThemeControls() {
   const mode = usePreferencesStore((state) => state.mode);
   const palette = usePreferencesStore((state) => state.palette);
-  const treeVariant = usePreferencesStore((state) => state.treeVariant);
   const setMode = usePreferencesStore((state) => state.setMode);
   const setPalette = usePreferencesStore((state) => state.setPalette);
-  const setTreeVariant = usePreferencesStore((state) => state.setTreeVariant);
 
   return (
     <div className="space-y-md rounded-xl border border-border bg-background-tertiary/75 p-lg">
@@ -63,24 +54,6 @@ export function ThemeControls() {
           value={palette}
         >
           {palettes.map((item) => (
-            <option key={item.value} value={item.value}>
-              {item.label}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className="block space-y-sm">
-        <span className="flex items-center gap-sm text-xs uppercase tracking-[0.22em] text-text-tertiary">
-          <Trees className="h-3.5 w-3.5" />
-          Grow style
-        </span>
-        <select
-          className="w-full rounded-md border border-border bg-background-secondary px-md py-sm text-sm text-text-primary outline-none focus:border-accent-primary"
-          onChange={(event) => setTreeVariant(event.target.value as typeof treeVariant)}
-          value={treeVariant}
-        >
-          {treeVariants.map((item) => (
             <option key={item.value} value={item.value}>
               {item.label}
             </option>

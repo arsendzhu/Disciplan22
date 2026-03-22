@@ -223,7 +223,7 @@ export const layoutMeta: Record<
   { label: string; shortLabel: string; icon: LucideIcon }
 > = {
   energy: { label: "Energy", shortLabel: "Energy", icon: Sparkles },
-  timeline: { label: "Timeline", shortLabel: "Timeline", icon: CalendarCheck2 },
+  timeline: { label: "Calendar", shortLabel: "Calendar", icon: CalendarCheck2 },
   board: { label: "Board", shortLabel: "Board", icon: Layers3 },
   matrix: { label: "Matrix", shortLabel: "Matrix", icon: ClipboardCheck },
   focus: { label: "Focus", shortLabel: "Focus", icon: Brain },

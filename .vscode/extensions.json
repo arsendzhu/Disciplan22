@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "Supabase.vscode-supabase-extension",
+    "dsznajder.es7-react-js-snippets",
+    "PulkitGangwar.nextjs-snippets"
+  ]
+}
