@@ -7,7 +7,7 @@ import { AddTaskSheet } from "@/components/schedule/AddTaskSheet";
 import { BreakCard } from "@/components/schedule/BreakCard";
 import { EnergyTimelineView } from "@/components/schedule/EnergyTimelineView";
 import { FocusModeView } from "@/components/schedule/FocusModeView";
-import { HourTimelineView } from "@/components/schedule/HourTimelineView";
+import { TodayCalendar } from "./_components/TodayCalendar";
 import { InterleavingSuggestionCard } from "@/components/schedule/InterleavingSuggestionCard";
 import { KanbanBoardView } from "@/components/schedule/KanbanBoardView";
 import { LayoutSwitcher } from "@/components/schedule/LayoutSwitcher";
@@ -64,7 +64,7 @@ export default function TodayPage() {
       case "energy":
         return <EnergyTimelineView peakWindow={peakWindow} tasks={tasks} />;
       case "timeline":
-        return <HourTimelineView tasks={tasks} />;
+        return <TodayCalendar tasks={tasks} />;
       case "board":
         return <KanbanBoardView tasks={tasks} />;
       case "matrix":
